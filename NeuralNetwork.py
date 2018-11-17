@@ -6,21 +6,6 @@ import matplotlib.pyplot as plt
 from matplotlib import style
 from NeuralLayer import NeuralLayer
 
-# HELP RESOURCES:
-# https://www.python-course.eu/neural_networks_with_python_numpy.php
-# https://github.com/pangolulu/rnn-from-scratch
-# https://towardsdatascience.com/how-to-build-your-own-neural-network-from-scratch-in-python-68998a08e4f6
-# https://github.com/pangolulu/neural-network-from-scratch
-# http://www.wildml.com/2015/09/implementing-a-neural-network-from-scratch/
-
-# Good Resources:
-# https://github.com/stephencwelch/Neural-Networks-Demystified
-# https://github.com/mnielsen/neural-networks-and-deep-learning/tree/master/src
-# https://colab.research.google.com/drive/1vm1EAZ7lLRooZHqHTfUlul5ZXpGmb_SZ#scrollTo=48D6_obVPuZS
-# https://matrices.io/deep-neural-network-from-scratch/
-
-# https://github.com/mnielsen/neural-networks-and-deep-learning/blob/master/src/network.py
-
 
 class NeuralNetwork:
     """
@@ -144,10 +129,10 @@ class NeuralNetwork:
 
             # Plotting settings
             plt.plot(range(len(loss)), loss, color='#EE6666')
-            plt.title('Loss function')
-            ax = plt.axes(axisbg='#E6E6E6')
-            ax.set_axisbelow(True)
-            plt.grid(color='w', linestyle='solid')
+            plt.title('Training process')
+            plt.xlabel('Number of iterations')
+            plt.ylabel('Cost value')
+            plt.grid(True)
 
             # Plot in real time
             plt.pause(0.05)

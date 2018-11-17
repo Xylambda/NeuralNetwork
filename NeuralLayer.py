@@ -19,7 +19,6 @@ class NeuralLayer:
         -n_this (int): number of neurons of this layer.
         -n_prev (int): number of neurons of the previous layer.
     """
-
     def __init__(self, n_this, n_prev):
         self.B = np.random.rand(n_this, 1)
         self.W = np.random.rand(n_this, n_prev)
