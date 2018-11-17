@@ -21,7 +21,7 @@ class NeuralNetwork:
         -topology (int []): an input list that represents the
         topology of this neural network. Each element is the
         number of neurons in that layer. Ex:
-            [2, 3, 4, 2]: 2 elements in the 1st layer, 3 in the
+            [2, 3, 4, 2]: 2 neurons in the 1st layer, 3 in the
             2nd layer and so on.
     """
     def __init__(self, topology):
@@ -38,7 +38,7 @@ class NeuralNetwork:
             over the neural network with an initial input input_x.
 
         Args:
-            -input_x (double[input neurons][1]): initial input of the neural network.
+            -input_x (double[][]): initial input of the neural network.
 
         Note:
             -This method is used to make the actual predictions of the neural network.
@@ -56,8 +56,8 @@ class NeuralNetwork:
             performs Gradient Descent algorithm to adjust weights and biases.
 
         Args:
-            -input_x (double[][1]): initial input of the neural network.
-            -target_y (double[][1]): target value that is wanted to be achieved.
+            -input_x (double[][]): initial input of the neural network.
+            -target_y (double[][]): target value that is wanted to be achieved.
             -rate (double): the learning rate of backpropagation.
         """
         # Store all activations of each layer (y)
@@ -83,14 +83,15 @@ class NeuralNetwork:
         errors = []
 
         # Calculate delta for the last layer
-        layer = len(self.network) - 1   # last layer
+        layer = len(self.network) - 1
         errors.insert(0, ms_error_prime(target_y, activations[layer]) * sigm_prime(weighted_sum[layer]))
 
+        # Retropropagate the error over the network
         for l in reversed(range(1, len(self.network))):
             y = activations[l]
             s = weighted_sum[l - 1]
 
-            # Retropropagate the error over the network
+            # Calculate the error for l layer:
             delta = np.dot(np.transpose(self.network[l].W), errors[0]) * sigm_prime(s)
 
             # **** GRADIENT DESCENT ****
@@ -109,8 +110,8 @@ class NeuralNetwork:
             Trains the network using the given inputs.
 
         Args:
-            -input_x (double[][1]): initial input of the neural network.
-            -target_y (double[][1]): target value that is wanted to be achieved.
+            -input_x (double[][]): initial input of the neural network.
+            -target_y (double[][]): target value that is wanted to be achieved.
             -rate (double): the learning rate of backpropagation.
             -n_iterations (int): the number of iterations of the training.
         """
@@ -177,8 +178,8 @@ def ms_error(y_p, y_r):
         set of values.
 
     Args:
-        -y_p (double [output neurons][1]): Predicted value.
-        -y_r (double [output neurons][1]): Real value
+        -y_p (double [][]): Predicted value.
+        -y_r (double [][]): Real value
     """
     return np.mean(y_p - y_r)**2
 
@@ -189,8 +190,8 @@ def ms_error_prime(y_p, y_r):
         -Derivative of mean square error.
 
     Args:
-        -y_p (double [output neurons][1]): Predicted value.
-        -y_r (double [output neurons][1]): Real value
+        -y_p (double [][]): Predicted value.
+        -y_r (double [][]): Real value
     """
     return 2 * np.mean(y_p - y_r)
 
@@ -198,13 +199,13 @@ def ms_error_prime(y_p, y_r):
 # **************************************************
 # ********************** MAIN **********************
 # **************************************************
-n = 500
+n = 50
 input_variables = 3
 output_variables = 2
 
 # Generate Dataset
-X = np.random.rand(500, input_variables)
-Y = np.random.rand(500, output_variables)
+X = np.random.rand(n, input_variables)
+Y = np.random.rand(n, output_variables)
 
 # Create the network
 topology = [input_variables, 4, 8, output_variables]
@@ -212,6 +213,6 @@ nN = NeuralNetwork(topology)
 
 # Train the network
 rate = 0.05
-iterations = 1200
+iterations = 500
 nN.train(X, Y, rate, iterations)
 
