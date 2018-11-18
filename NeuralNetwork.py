@@ -86,7 +86,7 @@ class NeuralNetwork:
         layer = len(self.network) - 1
         errors.insert(0, ms_error_prime(activations[layer], target_y) * sigm_prime(weighted_sum[layer]))
 
-        # Retropropagate the error over the network
+        # Backpropagate the error over the network
         for l in reversed(range(1, len(self.network))):
             y = activations[l]
             s = weighted_sum[l - 1]
