@@ -12,8 +12,8 @@ class NeuralLayer:
         -The weights matrix has the shape: [n_this, n_prev]
 
     Attributes:
-        -B (double [n_this][n_prev]): The biases matrix of this layer.
-        -W (double [n_this][1]): The weights matrix of this layer.
+        -B (double [n_this][1]): The biases matrix of this layer.
+        -W (double [n_this][n_prev]): The weights matrix of this layer.
 
     Args:
         -n_this (int): number of neurons of this layer.

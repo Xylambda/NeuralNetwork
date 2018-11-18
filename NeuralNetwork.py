@@ -3,14 +3,14 @@
 # *******************************
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import style
+
 from NeuralLayer import NeuralLayer
 
 
 class NeuralNetwork:
     """
     Description:
-        -Creates a new neural network as an list of neural layers,
+        -Creates a new neural network as a list of neural layers,
         based on topology.
 
     Attributes:
@@ -84,7 +84,7 @@ class NeuralNetwork:
 
         # Calculate delta for the last layer
         layer = len(self.network) - 1
-        errors.insert(0, ms_error_prime(target_y, activations[layer]) * sigm_prime(weighted_sum[layer]))
+        errors.insert(0, ms_error_prime(activations[layer], target_y) * sigm_prime(weighted_sum[layer]))
 
         # Retropropagate the error over the network
         for l in reversed(range(1, len(self.network))):
@@ -96,10 +96,10 @@ class NeuralNetwork:
 
             # **** GRADIENT DESCENT ****
             # Update Weights
-            self.network[l].W = self.network[l].W + rate * np.transpose(np.dot(delta, np.transpose(y)))
+            self.network[l].W = self.network[l].W - rate * np.transpose(np.dot(delta, np.transpose(y)))
 
             # Update Biases
-            self.network[l].B = self.network[l].B + rate * errors[0]
+            self.network[l].B = self.network[l].B - rate * errors[0]
 
             # Update the error
             errors.insert(0, delta)
@@ -107,7 +107,8 @@ class NeuralNetwork:
     def train(self, input_x, target_y, rate, n_iterations):
         """
         Description:
-            Trains the network using the given inputs.
+            Trains the network using the given inputs. In addition, plots the
+            loss function results in real time.
 
         Args:
             -input_x (double[][]): initial input of the neural network.
