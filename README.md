@@ -4,7 +4,7 @@ Simple feedforward Neural Network.
 ### How does it work?
 The model is created based on n layers. A layer is a set of numbers that represents the weight and bias matrices.
 
-The model computes feedforward and backpropagation. It also has a non-stochastich gradient descent algorithm to update
+The model computes feedforward and backpropagation. It also has a non-stochastic gradient descent algorithm to update
 the weights and biases.
 
 ## What is the output?
